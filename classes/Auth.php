@@ -23,7 +23,7 @@ class Auth extends Connection
         if (count($response) === 1) {
 
             $_SESSION["auth"] = 1;
-            $_SESSION["status"] = "admin";
+            $_SESSION["user_name"] = "admin";
 
         } else {
             $this->error_message = "wrong username or password";

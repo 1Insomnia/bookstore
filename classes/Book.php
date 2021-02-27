@@ -13,7 +13,7 @@ class Book extends Connection
 
     public function getAllBook()
     {
-        $statement = $this->pdo->prepare("SELECT * FROM livre;");
+        $statement = $this->pdo->prepare("SELECT id_livre, auteur, titre, is_active as disponibilité FROM livre;");
         $statement->execute();
         $res = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $res;
@@ -23,7 +23,7 @@ class Book extends Connection
     {
         $str = "id_livre";
 
-        $statement = $this->pdo->prepare("SELECT titre, auteur FROM livre WHERE :idl = :id;");
+        $statement = $this->pdo->prepare("SELECT * FROM livre WHERE :idl = :id;");
         $statement->bindParam("idl", $str);
         $statement->bindParam("id", $id);
         $statement->execute();
@@ -41,7 +41,17 @@ class Book extends Connection
         header('location:index.php?page=add&livre_status=' . $values["titre"]);
     }
 
-    // TODO : Message on delete
+    public function updateBook(array $values)
+    {
+        $statement = $this->pdo->prepare("UPDATE livre SET auteur = :aut, titre = :tit, is_active = :ia WHERE id_livre = :id;");
+        $statement->bindParam("id", $values["id_livre"]);
+        $statement->bindParam("aut", $values["auteur"]);
+        $statement->bindParam("tit", $values["titre"]);
+        $statement->bindParam("ia", $values["is_active"]);
+        $statement->execute();
+        header('location:index.php?page=modify&livre_status=' . $values["titre"]);
+    }
+
     public function removeBook(string $id)
     {
         $statement = $this->pdo->prepare("DELETE FROM livre where id_livre = :id;");
@@ -54,7 +64,7 @@ class Book extends Connection
     // Dump table
     public static function dump_table(array $data)
     {
-        echo "<table class='table table-bordered border-primary'";
+        echo "<table class='table table-bordered border-primary mt-5 container'";
         echo "<tr>";
         // Get row headers
         foreach ($data[0] as $key => $value) {

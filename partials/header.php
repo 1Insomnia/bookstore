@@ -60,7 +60,7 @@
         <?php if (!empty($_SESSION["auth"]) && $_SESSION["auth"] === 1): ?>
         <div>
           <span>Login as</span>
-          <span><?php echo $_SESSION["status"] ?></span>
+          <span><?php echo $_SESSION["user_name"] ?></span>
         </div>
         <?php endif;?>
       </div>
