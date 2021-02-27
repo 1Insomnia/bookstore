@@ -5,6 +5,13 @@
   </p>
 </section>
 
+<?php if(isset($_SESSION["auth"]) && $_SESSION["auth"] !== 1): ?>
+
+    <div class='text-danger mt-3'>Veuillez d'abord vous connecté(e)</div>
+    <a href="index.php?page=connect">Login</a>
+
+<?php else: ?>
+
 <section class="container">
   <form class="form-group" action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
     <!-- Title -->
@@ -29,3 +36,5 @@
     <button name="submit" class="btn btn-success">Submit</button>
   </form>
 </section>
+
+<?php endif; ?>

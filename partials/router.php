@@ -20,6 +20,14 @@ if (isset($_GET["page"])) {
             include "views/remove.php";
             break;
 
+        case "login":
+            include "views/login.php";
+            break;
+
+        case "logout":
+            include "views/logout.php";
+            break;
+
         default:
             include "views/page_404.php";
             break;
