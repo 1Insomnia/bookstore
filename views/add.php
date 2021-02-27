@@ -1,19 +1,34 @@
+<?php
+    require "classes/Book.php";
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && (!empty($_POST))) {
+        if (isset($_POST["titre"]) && !empty($_POST["titre"])) {
+            $titre = $_POST["titre"];
+        }
+        if (isset($_POST["auteur"]) && !empty($_POST["auteur"])) {
+            $auteur = $_POST["auteur"];
+        }
+        if (isset($_POST["is_active"]) && !empty($_POST["is_active"])) {
+            $is_active = $_POST["is_active"];
+        }
+
+        $book = new Book();
+        $book->addBook($_POST);
+    }
+
+?>
+
 <section class="container my-5">
-  <h1 class="mb-3">Dashboard - Ajout Article</h1>
-  <p>
-    Ajouter un nouveau livre avec la form ci-dessous.
-  </p>
+  <h1>Ajout Article</h1>
+  <?php
+      if (isset($_GET["livre_status"])) {
+          echo "<div class='text-success'>" . "Livre : " . $_GET["livre_status"] . " ajouté </div>";
+      }
+  ?>
 </section>
 
-<?php if(isset($_SESSION["auth"]) && $_SESSION["auth"] !== 1): ?>
-
-    <div class='text-danger mt-3'>Veuillez d'abord vous connecté(e)</div>
-    <a href="index.php?page=connect">Login</a>
-
-<?php else: ?>
-
 <section class="container">
-  <form class="form-group" action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
+  <form class="form-group" action="" method="post">
     <!-- Title -->
     <div class="mb-3">
       <label class="form-label mb-2">Titre</label>
@@ -32,9 +47,6 @@
         <option value="0">Non Disponible</option>
       </select>
     </div>
-    <!-- Button -->
-    <button name="submit" class="btn btn-success">Submit</button>
+    <button name="submit" class="btn btn-primary">Submit</button>
   </form>
 </section>
-
-<?php endif; ?>

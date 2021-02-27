@@ -1,3 +1,5 @@
+<?php require "classes/Book.php"?>
+
 <section class="container my-5 text-primary">
   <h1>Dashboard</h1>
 </section>
@@ -10,3 +12,8 @@
   <a href="index.php?page=login">Login</a>
   <?php endif;?>
 </section>
+
+<?php
+
+$book = new Book();
+$book::dump_table($book->getAllBook());
