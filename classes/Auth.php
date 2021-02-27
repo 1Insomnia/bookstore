@@ -1,16 +1,18 @@
 <?php
 
-require "connection.php";
+require "Connection.php";
 
 class Auth extends Connection
 {
-    public $errors = "";
+    public $error_message;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function checkUser(string $username, string $password) {
+    public function User(string $username, string $password)
+    {
 
         $query = $this->pdo->prepare("select username, password from users where username = :u and password = :p limit 1");
         $query->bindParam(":u", $username);
@@ -24,9 +26,25 @@ class Auth extends Connection
             $_SESSION["status"] = "admin";
 
         } else {
-            $this->errors = "wrong username or password";
-            echo "<script> alert($this->errors)</script>";
+            $this->error_message = "wrong username or password";
             session_unset();
         }
+    }
+
+    /**
+     * Get the value of error_message
+     */
+    public function getError_message()
+    {
+        if (!empty(!$this->error_message));
+        return $this->error_message;
+    }
+}
+
+function logout()
+{
+    if ($_SESSION["auth"] === 1) {
+        session_unset();
+        header("location: index.php?page=home");
     }
 }
