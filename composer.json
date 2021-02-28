@@ -1,0 +1,17 @@
+{
+  "name": "prim0rdial/atelier_pdo",
+  "description": "Book Management App",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "prim0rdial",
+      "email": "jeremy.pro.lp@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}

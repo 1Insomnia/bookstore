@@ -1,7 +1,4 @@
 <?php
-/*
-Most basic router
- */
 
 if (isset($_GET["page"])) {
 
@@ -9,28 +6,28 @@ if (isset($_GET["page"])) {
 
     switch ($page) {
         case 'dashboard':
-            include "views/dashboard.php";
+            $page_title = "Accueil";
             break;
         case "create":
-            include "views/create.php";
+            $page_title = "Ajout Article";
             break;
         case "read":
-            include "views/read.php";
+            $page_title = "Lister Articles";
             break;
         case "update":
-            include "views/update.php";
+            $page_title = "Modifier Article";
             break;
         case "delete":
-            include "views/delete.php";
+            $page_title = "Supprimer Article";
             break;
         case "login":
-            include "views/login.php";
+            $page_title = "Login";
             break;
         case "logout":
-            include "views/logout.php";
+            $page_title = "Logout";
             break;
         default:
-            include "views/page_404.php";
+            $page_title = "Unknown";
             break;
     }
 }

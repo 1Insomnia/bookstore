@@ -1,6 +1,9 @@
 <?php
 
-require "Connection.php";
+namespace App;
+
+use \App\Connection;
+use \PDO;
 
 class Book extends Connection
 {
@@ -15,20 +18,8 @@ class Book extends Connection
     {
         $statement = $this->pdo->prepare("SELECT id_livre, auteur, titre, is_active as disponibilité FROM livre;");
         $statement->execute();
-        $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $res = $statement->fetchAll();
         return $res;
-    }
-
-    public function getBookId(string $id)
-    {
-        $str = "id_livre";
-
-        $statement = $this->pdo->prepare("SELECT * FROM livre WHERE :idl = :id;");
-        $statement->bindParam("idl", $str);
-        $statement->bindParam("id", $id);
-        $statement->execute();
-        $res = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $this;
     }
 
     public function addBook(array $values)

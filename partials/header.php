@@ -7,7 +7,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Bookstore - <?php echo strtolower($_GET["page"]); ?></title>
+  <title>Bookstore - <?php echo $page_title ?? "Accueil"; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -24,10 +24,12 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between" id="collapsibleNavbar">
+      <div class="collapse navbar-collapse d-flex justify-content-between container-fluid" id="collapsibleNavbar">
         <ul class="navbar-nav text-md text-left align-items-center">
+          <a class="navbar-brand" href="index.php?page=home"><img src="assets/logo.svg" alt="" height="32"
+              width="32"></a>
           <li class="nav-item">
-            <a class="nav-link text-white" href="index.php?page=home">
+            <a class="nav-link text-white" href="index.php?page=dashboard">
               Accueil
             </a>
           </li>
@@ -42,28 +44,31 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="index.php?page=add">
+            <a class="nav-link text-white" href="index.php?page=create">
               Ajout article
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="index.php?page=modify">
+            <a class="nav-link text-white" href="index.php?page=read">
+              Lister articles
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="index.php?page=update">
               Modifier article
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="index.php?page=remove">
+            <a class="nav-link text-white" href="index.php?page=delete">
               Supprimer article
             </a>
           </li>
         </ul>
-        <?php if (!empty($_SESSION["auth"]) && $_SESSION["auth"] === 1): ?>
-        <div>
-          <span>Login as</span>
-          <span><?php echo $_SESSION["user_name"] ?></span>
-        </div>
-        <?php endif;?>
+        <!-- TODO : Login as user["name] -->
       </div>
     </nav>
-
   </header>
+
+  <section class="container my-5 text-primary">
+    <h1><?php echo $page_title ?? ""; ?></h1>
+  </section>

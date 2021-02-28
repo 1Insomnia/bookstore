@@ -1,32 +1,3 @@
-<?php
-    require "classes/Book.php";
-
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && (!empty($_POST))) {
-        if (isset($_POST["titre"]) && !empty($_POST["titre"])) {
-            $titre = $_POST["titre"];
-        }
-        if (isset($_POST["auteur"]) && !empty($_POST["auteur"])) {
-            $auteur = $_POST["auteur"];
-        }
-        if (isset($_POST["is_active"]) && !empty($_POST["is_active"])) {
-            $is_active = $_POST["is_active"];
-        }
-
-        $book = new Book();
-        $book->addBook($_POST);
-    }
-
-?>
-
-<section class="container my-5">
-  <h1>Ajout Article</h1>
-  <?php
-      if (isset($_GET["livre_status"])) {
-          echo "<div class='text-success'>" . "Livre : " . $_GET["livre_status"] . " ajouté </div>";
-      }
-  ?>
-</section>
-
 <section class="container">
   <form class="form-group" action="" method="post">
     <!-- Title -->

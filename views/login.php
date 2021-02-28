@@ -1,35 +1,52 @@
 <?php
-    include "classes/Auth.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && (!empty($_POST))) {
-        if (isset($_POST["username"]) && !empty($_POST["username"])) {
-            $username = $_POST["username"];
-        }
-        if (isset($_POST["password"]) && !empty($_POST["password"])) {
-            $password = md5($_POST["password"]);
-        }
+use \App\Filter;
 
-        $current_user = new Auth();
-        $current_user->User($username, $password);
-        echo $current_user->getError_message();
+$errors = [];
+
+if (isset($_POST) && !empty($_POST)) {
+    $username = Filter::filter($_POST["username"]);
+    $password = Filter::filter($_POST["password"]);
+
+    if (strlen($username) < Filter::MIN_USERNAME_LEN) {
+        $errors["username"] = "Username to short. Username must between 2 and 80 char";
     }
+
+    if (strlen($password) < Filter::MIN_PASSWORD_LEN) {
+        $errors["password"] = "Password too short. Password must between 5 and 24 char";
+    }
+
+    if (strlen($username) > Filter::MAX_USERNAME_LEN) {
+        $errors["username"] = "Username to short.  Password must between 5 and 24 char";
+    }
+
+    if (strlen($password) > Filter::MAX_PASSWORD_LEN) {
+        $errors["password"] = "Password too short. Password must between 5 and 24 char";
+    }
+}
 ?>
 
-<section class="container my-5 text-primary">
-  <h1>Login</h1>
-  <?php
-      if (isset($_SESSION["user_name"])) {
-          echo "<div class='text-success'>" . "Utilisateur : " . $_SESSION["user_name"] . " connecté </div>";
-      }
-  ?>
-</section>
-
 <section class="container">
-  <form class="form-group" action="" method="POST">
-    <label class="form-label mb-2" for="username">Entrer votre nom d'utilisateur</label>
-    <input class="form-control mb-3" type="text" name="username" id="username" placeholder="Le Scrameustache" required>
-    <label class="form-label mb-2" for="password">Entrer votre mot de passe</label>
-    <input class="form-control mb-5" type="password" name="password" id="password" required>
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
+    <form class="form-group" action="" method="POST">
+        <div class="form-group">
+            <label class="form-label mb-2" for="username">Entrer votre nom d'utilisateur</label>
+            <input class="form-control mb-3" type="text" name="username" id="username" placeholder="Le Scrameustache"
+                   required>
+            <?php if (!empty($errors["username"])): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $errors["username"] ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="form-group">
+            <label class="form-label mb-2" for="password">Entrer votre mot de passe</label>
+            <input class="form-control mb-5" type="password" name="password" id="password" required>
+            <?php if (!empty($errors["username"])): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $errors["password"] ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
 </section>
