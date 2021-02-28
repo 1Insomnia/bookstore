@@ -6,7 +6,7 @@
         <p>Vous n'êtes pas authentifié, veuillez utiliser la page login pour continuer</p>
         <a href="index.php?page=login" class="text-danger">Login</a>
     <?php else: ?>
-        <p>Bienvenue <?= $_SESSION["user_name"]?></p>
+        <p>Bienvenue <em class="text-success"><?= $_SESSION["user_name"]?></em></p>
         <p>Utiliser la barre de navigation pour utiliser l'application</p>
     <?php endif; ?>
 </section>

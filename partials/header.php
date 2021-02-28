@@ -64,6 +64,12 @@
             </a>
           </li>
         </ul>
+          <?php if(isset($_SESSION["logged_in"])) :?>
+          <div>
+              <span>Logged In As</span>
+              <span><?= $_SESSION["user_name"]?></span>
+          </div>
+          <?php endif; ?>
         <!-- TODO : Login as user["name] -->
       </div>
     </nav>

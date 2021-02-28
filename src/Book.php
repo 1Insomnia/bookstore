@@ -32,28 +32,31 @@ class Book extends Connection
         header('location:index.php?page=create&book_status=' . $titre);
     }
 
-    public function updateBook(array $values)
+    public function updateBook(string $id_livre, string $auteur, string $titre, string $is_active): void
     {
         $statement = $this->pdo->prepare("UPDATE livre SET auteur = :aut, titre = :tit, is_active = :ia WHERE id_livre = :id;");
-        $statement->bindParam("id", $values["id_livre"]);
-        $statement->bindParam("aut", $values["auteur"]);
-        $statement->bindParam("tit", $values["titre"]);
-        $statement->bindParam("ia", $values["is_active"]);
+        $statement->bindParam("id", $id_livre);
+        $statement->bindParam("aut", $auteur);
+        $statement->bindParam("tit", $titre);
+        $statement->bindParam("ia", $is_active);
         $statement->execute();
-        header('location:index.php?page=update&book_status=' . $values["titre"]);
+        header('location:index.php?page=update&book_status=' . $titre);
     }
 
-    public function deleteBook(string $id)
+    public function deleteBook(string $id_livre): void
     {
+        try {
         $statement = $this->pdo->prepare("DELETE FROM livre where id_livre = :id;");
-        $statement->bindParam("id", $id);
+        $statement->bindParam("id", $id_livre);
         $statement->execute();
-        header('location:index.php?page=delete&book_status=' . $id);
-        return $this;
+        header('location:index.php?page=delete&book_status=' . $id_livre);
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     // Dump table
-    public static function dump_table(array $data)
+    public static function dump_table(array $data): void
     {
         echo "<table class='table table-bordered border-primary mt-5 container'";
         echo "<tr>";
@@ -74,7 +77,7 @@ class Book extends Connection
     }
 
     // Helpers functions
-    public static function dump_row(array $data)
+    public static function dump_row(array $data): void
     {
         echo "<ul class='list-group>'";
         foreach ($data as $key => $value) {
