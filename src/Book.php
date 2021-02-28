@@ -14,7 +14,7 @@ class Book extends Connection
         parent::__construct();
     }
 
-    public function getAllBook()
+    public function readBook()
     {
         $statement = $this->pdo->prepare("SELECT id_livre, auteur, titre, is_active as disponibilité FROM livre;");
         $statement->execute();
@@ -22,14 +22,14 @@ class Book extends Connection
         return $res;
     }
 
-    public function addBook(array $values)
+    public function createBook(string $auteur, string $titre, string $is_active): void
     {
         $statement = $this->pdo->prepare("INSERT INTO livre (auteur, titre, is_active) VALUES(:aut, :tit, :ia);");
-        $statement->bindParam("aut", $values["auteur"]);
-        $statement->bindParam("tit", $values["titre"]);
-        $statement->bindParam("ia", $values["is_active"]);
+        $statement->bindParam("aut", $auteur);
+        $statement->bindParam("tit", $titre);
+        $statement->bindParam("ia", $is_active);
         $statement->execute();
-        header('location:index.php?page=add&livre_status=' . $values["titre"]);
+        header('location:index.php?page=create&book_status=' . $titre);
     }
 
     public function updateBook(array $values)
@@ -40,15 +40,15 @@ class Book extends Connection
         $statement->bindParam("tit", $values["titre"]);
         $statement->bindParam("ia", $values["is_active"]);
         $statement->execute();
-        header('location:index.php?page=modify&livre_status=' . $values["titre"]);
+        header('location:index.php?page=update&book_status=' . $values["titre"]);
     }
 
-    public function removeBook(string $id)
+    public function deleteBook(string $id)
     {
         $statement = $this->pdo->prepare("DELETE FROM livre where id_livre = :id;");
         $statement->bindParam("id", $id);
         $statement->execute();
-        header('location:index.php?page=remove&livre_status=' . $id);
+        header('location:index.php?page=delete&book_status=' . $id);
         return $this;
     }
 
