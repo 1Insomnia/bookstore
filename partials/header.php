@@ -24,7 +24,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between container-fluid" id="collapsibleNavbar">
+      <div class="collapse navbar-collapse d-flex justify-content-between container" id="collapsibleNavbar">
         <ul class="navbar-nav text-md text-left align-items-center">
           <a class="navbar-brand" href="index.php?page=home"><img src="assets/logo.svg" alt="" height="32"
               width="32"></a>

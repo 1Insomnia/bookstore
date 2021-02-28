@@ -1,6 +1,6 @@
 <?php
 
-use \App\{Auth,Filter};
+use \App\{Auth, Filter};
 
 $errors = [];
 
@@ -24,23 +24,22 @@ if (isset($_POST) && !empty($_POST)) {
         $errors["password"] = "Password too short. Password must between 5 and 24 char";
     }
 
-    if(empty($errors)) {
+    if (empty($errors)) {
         $password = md5($password);
         $current_user = new Auth($username, $password);
         $current_user_state = $current_user->checkUser();
     }
 }
-     dump($_SESSION);
 
 ?>
-<?php if((isset($_GET["auth_status"])) && ($_GET["auth_status"] === "success")):?>
+<?php if ((isset($_GET["auth_status"])) && ($_GET["auth_status"] === "success")): ?>
     <div class="success alert-success container my-3 p-3">
-        <?= $_GET["user_name"] . " successfully logged in"?>
+        <?= $_GET["user_name"] . " successfully logged in" ?>
     </div>
 <?php endif; ?>
-<?php if((isset($_GET["auth_status"])) && ($_GET["auth_status"] === "fail")):?>
+<?php if ((isset($_GET["auth_status"])) && ($_GET["auth_status"] === "fail")): ?>
     <div class="danger alert-danger container my-3 p-3">
-        <?= "Fail to log in wrong username or password"?>
+        <?= "Fail to log in wrong username or password" ?>
     </div>
 <?php endif; ?>
 <section class="container">
