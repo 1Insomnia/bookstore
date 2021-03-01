@@ -2,7 +2,6 @@
 
     use \App\Book;
     use \App\Filter;
-    dump($_COOKIE);
 
     $errors = [];
 
@@ -10,11 +9,9 @@
         $auteur = Filter::filter($_POST["auteur"]);
         $titre = Filter::filter($_POST["titre"]);
         $is_active = Filter::filter($_POST["is_active"]);
-    // TODO : Validation
         $book = new Book();
         $book->createBook($auteur, $titre, $is_active);
     }
-
 ?>
 
 <?php if (!isset($_SESSION["logged_in"])): ?>
@@ -26,7 +23,7 @@
 <?php endif;?>
 <?php if (isset($_GET["book_status"])): ?>
 <div class="text-success container">
-  Livre <?php echo " " . $_GET["book_status"] . " "?> ajouté.
+  Livre <?php echo " " . $_GET["book_status"] . " " ?> ajouté.
 </div>
 <?php endif?>
 <section class="container">
@@ -53,3 +50,6 @@
     <button name="submit" class="btn btn-primary">Submit</button>
   </form>
 </section>
+<?php
+    $book = new Book();
+?>
