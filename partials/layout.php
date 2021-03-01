@@ -63,7 +63,7 @@
             <span><?php echo $_SESSION["user_name"] ?></span>
           </span>
           <span>
-            <a class="text-white btn btn-danger" href="index.php?page=logout">
+            <a class="text-white btn btn-danger px-2 mx-2" href="index.php?page=logout">
               Se deconnecter
             </a>
           </span>

@@ -21,15 +21,15 @@ class Book extends Connection
 
     public function readBook(mixed $bookNumber = false): array
     {
-            $statement = $this->pdo->prepare("SELECT id_livre, auteur, titre, is_active as disponibilité FROM livre ORDER BY id_livre DESC;");
-            $statement->execute();
-            return $statement->fetchAll();
+        $statement = $this->pdo->prepare("SELECT id_livre, auteur, titre, is_active as disponibilité FROM livre ORDER BY id_livre DESC;");
+        $statement->execute();
+        return $statement->fetchAll();
     }
 
-    public function getOneBook(): array
+    public function getOneBook($id): array
     {
-        $statement = $this->pdo->prepare("SELECT auteur, titre, is_active FROM livre WHERE id_livre = 125;");
-        $statement->execute();
+        $statement = $this->pdo->prepare("SELECT auteur, titre, is_active FROM livre WHERE id_livre = ?;");
+        $statement->execute([$id]);
         return $statement->fetchAll();
     }
 
@@ -82,10 +82,10 @@ class Book extends Connection
 
     public function deleteBook(string $id_livre): void
     {
-            $statement = $this->pdo->prepare("DELETE FROM livre where id_livre = :id;");
-            $statement->bindParam("id", $id_livre);
-            $statement->execute();
-            header('location:index.php?page=delete&book_status=' . $id_livre);
+        $statement = $this->pdo->prepare("DELETE FROM livre where id_livre = :id;");
+        $statement->bindParam("id", $id_livre);
+        $statement->execute();
+        header('location:index.php?page=dashboard&book_status=' . $id_livre);
     }
 
     // Dump table
@@ -111,8 +111,8 @@ class Book extends Connection
             foreach ($value as $k => $v) {
                 echo "<td>" . $v . "</td>";
             }
-            echo "<td><a href='index.php?page=update&id_livre={$value['id_livre']}'>Modifier</a</td>";
-            echo "<td><a href='index.php?page=delete&id_livre={$value['id_livre']}'>Suprimer</a</td>";
+            echo "<td><a href='index.php?page=update&id_livre={$value['id_livre']}&auteur={$value['auteur']}&disponiblité={$value['disponibilité']}'>Modifier</a</td>";
+            echo "<td><a href='index.php?page=delete&id_livre={$value['id_livre']}&auteur={$value['auteur']}&disponiblité={$value['disponibilité']}'>Suprimer</a</td>";
             echo "</tr>";
         }
         echo "</table>";

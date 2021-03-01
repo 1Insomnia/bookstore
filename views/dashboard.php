@@ -23,17 +23,10 @@
   <p class="display-4">Bienvenue <span class="text-success"><?php echo $_SESSION["user_name"] ?></span></p>
 </div>
 <section class="container mt-5">
-  <div class="mt-3">Afficher tout les livres</div>
-  <form class="form-group" action="" method="POST">
-    <button name="submit" class="btn btn-success" name="pull_search">Search</button>
-  </form>
+  <h2>All The Books in database</h2>
+  <?php
+      $book = new Book();
+      $book::dump_table($book->readBook());
+  ?>
 </section>
 <?php endif;?>
-
-<?php
-    if (isset($_POST) && !empty($_POST)) {
-        $book = new Book();
-        $book::dump_table($book->readBook());
-        Book::dump_row($book->getOneBook());
-}
-?>
