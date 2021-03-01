@@ -6,16 +6,12 @@ Most basic router
 if (isset($_GET["page"])) {
 
     $page = $_GET['page'];
-
     switch ($page) {
-        case 'dashboard':
+        case "dashboard":
             include "views/dashboard.php";
             break;
         case "create":
             include "views/create.php";
-            break;
-        case "read":
-            include "views/read.php";
             break;
         case "update":
             include "views/update.php";

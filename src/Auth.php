@@ -29,7 +29,7 @@ class Auth extends Connection
         if (count($response) === 1) {
             $_SESSION["logged_in"] = 1;
             $_SESSION["user_name"] = $this->username;
-            header("location:index.php?page=login&auth_status=success&user_name=" . $this->username);
+            header("location:index.php?page=dashboard&auth_status=success&user_name=" . $this->username);
             return $this->username . " Auth Successful";
         } else {
             header("location:index.php?page=login&auth_status=fail");
@@ -41,9 +41,19 @@ class Auth extends Connection
 
     public static function dropUser()
     {
-        if ($_SESSION["logged_in"] === 1) {
+        if (isset($_SESSION["logged_in"])) {
             session_unset();
-            header("location:index.php?page=logout&auth_logout=success");
+            header("location:index.php?page=dashboard&auth_logout=success");
+        }
+    }
+
+    public static function isLogged()
+    {
+        if (!(isset($_SESSION["logged_in"]))) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
+
